@@ -1,0 +1,296 @@
+{
+  "fetched_at": "2026-10-06T20:22:00.102021+00:00",
+  "meter_time": {
+    "current_time": "2026-10-06T20:22:02.602021+00:00",
+    "dst_offset": 0,
+    "quality": 5,
+    "tz_offset": 0
+  },
+  "tou": {
+    "energy_tou_summation_delivered": {
+      "0": {
+        "duration": 1,
+        "quality": 1,
+        "start": "2026-10-06T04:04:20+00:00",
+        "tou_tier": 0,
+        "unit": "Wh",
+        "uom": 72,
+        "value": 42238333.0
+      },
+      "1": {
+        "duration": 1,
+        "quality": 1,
+        "start": "2026-10-06T04:04:20+00:00",
+        "tou_tier": 1,
+        "unit": "Wh",
+        "uom": 72,
+        "value": 5745743.0
+      },
+      "2": {
+        "duration": 1,
+        "quality": 1,
+        "start": "2026-10-06T04:04:20+00:00",
+        "tou_tier": 2,
+        "unit": "Wh",
+        "uom": 72,
+        "value": 1243833.0
+      },
+      "3": {
+        "duration": 1,
+        "quality": 1,
+        "start": "2026-10-06T04:04:20+00:00",
+        "tou_tier": 3,
+        "unit": "Wh",
+        "uom": 72,
+        "value": 35248760.0
+      },
+      "4": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 4,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      },
+      "5": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 5,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      },
+      "6": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 6,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      },
+      "7": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 7,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      },
+      "8": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 8,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      }
+    },
+    "energy_tou_summation_received": {
+      "0": {
+        "duration": 1,
+        "quality": 1,
+        "start": "2026-10-06T04:04:20+00:00",
+        "tou_tier": 0,
+        "unit": "Wh",
+        "uom": 72,
+        "value": 8783719.0
+      },
+      "1": {
+        "duration": 1,
+        "quality": 1,
+        "start": "2026-10-06T04:04:20+00:00",
+        "tou_tier": 1,
+        "unit": "Wh",
+        "uom": 72,
+        "value": 331157.0
+      },
+      "2": {
+        "duration": 1,
+        "quality": 1,
+        "start": "2026-10-06T04:04:20+00:00",
+        "tou_tier": 2,
+        "unit": "Wh",
+        "uom": 72,
+        "value": 1425298.0
+      },
+      "3": {
+        "duration": 1,
+        "quality": 1,
+        "start": "2026-10-06T04:04:20+00:00",
+        "tou_tier": 3,
+        "unit": "Wh",
+        "uom": 72,
+        "value": 7027264.0
+      },
+      "4": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 4,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      },
+      "5": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 5,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      },
+      "6": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 6,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      },
+      "7": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 7,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      },
+      "8": {
+        "duration": 1,
+        "quality": null,
+        "start": "2026-09-05T11:29:56+00:00",
+        "tou_tier": 8,
+        "unit": "Wh",
+        "uom": 72,
+        "value": null
+      }
+    }
+  },
+  "values": {
+    "apparent_energy_summation_delivered": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:39:57+00:00",
+      "tou_tier": null,
+      "unit": "VAh",
+      "uom": 71,
+      "value": 46772115.0
+    },
+    "apparent_energy_summation_received": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:40:08+00:00",
+      "tou_tier": null,
+      "unit": "VAh",
+      "uom": 71,
+      "value": 10135415.0
+    },
+    "energy_summation_delivered": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:40:20+00:00",
+      "tou_tier": null,
+      "unit": "Wh",
+      "uom": 72,
+      "value": 42239863.0
+    },
+    "energy_summation_received": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:40:30+00:00",
+      "tou_tier": null,
+      "unit": "Wh",
+      "uom": 72,
+      "value": 8783719.0
+    },
+    "power": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:40:44+00:00",
+      "tou_tier": null,
+      "unit": "W",
+      "uom": 38,
+      "value": 2439.0
+    },
+    "power_factor": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:37:10+00:00",
+      "tou_tier": null,
+      "unit": "",
+      "uom": 65,
+      "value": 0.918
+    },
+    "power_factor_phase_a": {
+      "duration": null,
+      "quality": null,
+      "start": null,
+      "tou_tier": null,
+      "unit": "",
+      "uom": 65,
+      "value": null
+    },
+    "power_factor_phase_b": {
+      "duration": null,
+      "quality": null,
+      "start": null,
+      "tou_tier": null,
+      "unit": "",
+      "uom": 65,
+      "value": null
+    },
+    "power_factor_phase_c": {
+      "duration": null,
+      "quality": null,
+      "start": null,
+      "tou_tier": null,
+      "unit": "",
+      "uom": 65,
+      "value": null
+    },
+    "power_maximum_delivered": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:20:52+00:00",
+      "tou_tier": null,
+      "unit": "W",
+      "uom": 38,
+      "value": 6024.0
+    },
+    "power_maximum_received": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:20:52+00:00",
+      "tou_tier": null,
+      "unit": "W",
+      "uom": 38,
+      "value": null
+    },
+    "reactive_energy_summation_delivered": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:39:33+00:00",
+      "tou_tier": null,
+      "unit": "varh",
+      "uom": 73,
+      "value": 2840951.0
+    },
+    "reactive_energy_summation_received": {
+      "duration": 1,
+      "quality": 1,
+      "start": "2026-10-06T04:39:46+00:00",
+      "tou_tier": null,
+      "unit": "varh",
+      "uom": 73,
+      "value": 6725895.0
+    }
+  }
+}

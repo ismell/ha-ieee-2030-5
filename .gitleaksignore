@@ -1,0 +1,2 @@
+# tests/fixtures/identity.json: a certificate and key generated for the tests, never registered with a utility.
+tests/fixtures/identity.json:private-key:3

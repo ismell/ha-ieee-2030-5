@@ -1,0 +1,257 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured",
+            "certificate_expired": "The client certificate has expired. Generate or import a new one.",
+            "invalid_identity": "The stored client certificate cannot be used. Generate or import a new one.",
+            "not_ieee_2030_5": "The discovered device is not an IEEE 2030.5 meter.",
+            "reauth_successful": "Re-authentication was successful",
+            "reconfigure_successful": "Reconfiguration was successful",
+            "register_certificate": "Register this device with your utility for the meter **{sfdi}** (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account), using\n\n**LFDI:** `{lfdi}`\n\nRegistration can take a few days. Until then the meter refuses the connection, a repair issue shows this LFDI, and Home Assistant keeps checking.",
+            "renewal_already_pending": "A renewed certificate is already waiting for registration. To replace it, discard it first.",
+            "renewal_changed": "The pending certificate changed meanwhile; nothing was discarded.",
+            "renewal_complete": "The meter accepts the new certificate, and Home Assistant now uses it.",
+            "renewal_discarded": "The pending certificate was discarded. Home Assistant keeps using the current one.",
+            "renewal_pending": "Register this device with your utility for the meter **{sfdi}** (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account), using\n\n**LFDI:** `{lfdi}`\n\nUntil the meter accepts it, Home Assistant keeps using the current certificate; then it switches on its own. A repair issue shows this LFDI meanwhile.",
+            "same_identity": "This certificate is already in use.",
+            "wrong_device": "This is a different meter than the one configured."
+        },
+        "create_entry": {
+            "register_certificate": "Register this device with your utility for the meter **{sfdi}** (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account), using\n\n**LFDI:** `{lfdi}`\n\nRegistration can take a few days. Until then the meter refuses the connection, a repair issue shows this LFDI, and Home Assistant keeps checking."
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "cannot_identify": "The device refused the connection before proving which meter it is.",
+            "invalid_identity": "The certificate or key cannot be used: {problems}"
+        },
+        "flow_title": "Electric meter {sfdi}",
+        "step": {
+            "address": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "The hostname or IP address of the meter.",
+                    "port": "The meter's HTTPS port (8081 on Itron meters)."
+                },
+                "title": "Change the meter's address"
+            },
+            "connect": {
+                "description": "The meter could not be reached with the certificate. Check that it is online, then select **Submit** to try again.",
+                "title": "Connect to the meter"
+            },
+            "discard_renewal": {
+                "description": "The pending certificate with LFDI `{lfdi}` and its private key will be deleted. If you have registered this LFDI with your utility, it can no longer be used, and you will need to renew again. Select **Submit** to discard it.",
+                "title": "Discard the pending certificate?"
+            },
+            "discovery_confirm": {
+                "description": "Set up the electric meter {sfdi} found at {host}?"
+            },
+            "identity": {
+                "description": "The meter only talks to clients whose certificate is registered with the utility (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account). Generate a new certificate to register, or import one that is already registered.",
+                "menu_options": {
+                    "generate_identity": "Generate a new certificate",
+                    "import_identity": "Import a registered certificate"
+                }
+            },
+            "import_identity": {
+                "data": {
+                    "certificate": "Certificate",
+                    "private_key": "Private key"
+                },
+                "data_description": {
+                    "certificate": "The client certificate, in PEM format.",
+                    "private_key": "Its unencrypted private key, in PEM format."
+                },
+                "description": "Paste the client certificate you registered with your utility and its private key."
+            },
+            "reauth_confirm": {
+                "description": "The meter no longer accepts the client certificate. If you have just (re-)registered it, try again; otherwise use a new certificate.",
+                "menu_options": {
+                    "generate_identity": "Generate a new certificate",
+                    "import_identity": "Import a registered certificate",
+                    "reauth_retry": "Try the current certificate again"
+                },
+                "title": "Authentication expired for {name}"
+            },
+            "reconfigure": {
+                "description": "What do you want to change?",
+                "menu_options": {
+                    "address": "Change the meter's address",
+                    "discard_renewal": "Discard the pending certificate",
+                    "renew_identity": "Renew the client certificate"
+                }
+            },
+            "renew_identity": {
+                "description": "Home Assistant keeps using the current certificate (valid until {expiry}) until the meter accepts the new one, then switches to it on its own.",
+                "menu_options": {
+                    "generate_identity": "Generate a new certificate",
+                    "import_identity": "Import a registered certificate"
+                },
+                "title": "Renew the client certificate"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "The hostname or IP address of the meter.",
+                    "port": "The meter's HTTPS port (8081 on Itron meters)."
+                },
+                "description": "Set up an IEEE 2030.5 electric meter on your local network."
+            }
+        }
+    },
+    "device": {
+        "meter": {
+            "name": "Electric meter"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "apparent_energy_exported": {
+                "name": "Apparent energy exported"
+            },
+            "apparent_energy_imported": {
+                "name": "Apparent energy imported"
+            },
+            "client_certificate_expiry": {
+                "name": "Client certificate expiry"
+            },
+            "clock_offset": {
+                "name": "Clock offset"
+            },
+            "energy_exported": {
+                "name": "Energy exported"
+            },
+            "energy_exported_tier": {
+                "name": "Energy exported tier {tier}"
+            },
+            "energy_imported": {
+                "name": "Energy imported"
+            },
+            "energy_imported_tier": {
+                "name": "Energy imported tier {tier}"
+            },
+            "peak_demand_exported": {
+                "name": "Peak demand exported"
+            },
+            "peak_demand_imported": {
+                "name": "Peak demand imported"
+            },
+            "power_factor_phase_a": {
+                "name": "Power factor phase A"
+            },
+            "power_factor_phase_b": {
+                "name": "Power factor phase B"
+            },
+            "power_factor_phase_c": {
+                "name": "Power factor phase C"
+            },
+            "reactive_energy_exported": {
+                "name": "Reactive energy exported"
+            },
+            "reactive_energy_imported": {
+                "name": "Reactive energy imported"
+            }
+        }
+    },
+    "exceptions": {
+        "auth_failed": {
+            "message": "The meter at {host} refused the client certificate."
+        },
+        "awaiting_registration": {
+            "message": "The meter does not accept the client certificate yet; waiting for the utility to register it."
+        },
+        "awaiting_renewal": {
+            "message": "The meter no longer accepts the current client certificate. Waiting for the utility to register the renewed one ({lfdi})."
+        },
+        "certificate_expired": {
+            "message": "The client certificate expired on {expiry}."
+        },
+        "certificate_renewed": {
+            "message": "The meter now accepts the renewed client certificate; switching to it."
+        },
+        "connection_error": {
+            "message": "Could not read the meter at {host}: {error}"
+        },
+        "identity_mismatch": {
+            "message": "The device at {host} is not the configured meter."
+        },
+        "invalid_identity": {
+            "message": "The stored client certificate cannot be used."
+        },
+        "meter_busy": {
+            "message": "The meter at {host} is busy."
+        }
+    },
+    "issues": {
+        "awaiting_registration": {
+            "fix_flow": {
+                "abort": {
+                    "still_unregistered": "The meter still refuses the certificate with LFDI `{lfdi}`. Registration can take a few days; Home Assistant keeps checking on its own."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Register this LFDI with your utility for the meter {sfdi} (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account):\n\n`{lfdi}`\n\nOnce it is registered, select **Submit** to check again. Home Assistant also keeps checking on its own.",
+                        "title": "Check the registration"
+                    }
+                }
+            },
+            "title": "Register the meter's client certificate"
+        },
+        "certificate_expiring": {
+            "fix_flow": {
+                "abort": {
+                    "invalid_identity": "The stored client certificate cannot be used. Generate or import a new one.",
+                    "renewal_already_pending": "A renewed certificate is already waiting for registration. To replace it, discard it first.",
+                    "renewal_pending": "Register this device with your utility for the meter **{sfdi}** (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account), using\n\n**LFDI:** `{lfdi}`\n\nUntil the meter accepts it, Home Assistant keeps using the current certificate; then it switches on its own. A repair issue shows this LFDI meanwhile.",
+                    "same_identity": "This certificate is already in use."
+                },
+                "error": {
+                    "invalid_identity": "The certificate or key cannot be used: {problems}"
+                },
+                "step": {
+                    "import_identity": {
+                        "data": {
+                            "certificate": "Certificate",
+                            "private_key": "Private key"
+                        },
+                        "data_description": {
+                            "certificate": "The client certificate, in PEM format.",
+                            "private_key": "Its unencrypted private key, in PEM format."
+                        },
+                        "description": "Paste the client certificate you registered with your utility and its private key."
+                    },
+                    "init": {
+                        "description": "The client certificate for the meter {sfdi} expires on {expiry}. Registering a new one with the utility (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account) can take a few days, so renew it now: Home Assistant keeps using the current certificate until the meter accepts the new one, then switches to it on its own.",
+                        "menu_options": {
+                            "generate_identity": "Generate a new certificate",
+                            "import_identity": "Import a registered certificate"
+                        },
+                        "title": "Renew the client certificate"
+                    }
+                }
+            },
+            "title": "The meter's client certificate expires soon"
+        },
+        "renewal_pending": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Failed to connect",
+                    "still_unregistered": "The meter still refuses the certificate with LFDI `{lfdi}`. Registration can take a few days; Home Assistant keeps checking on its own.",
+                    "wrong_device": "This is a different meter than the one configured."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Register this LFDI with your utility for the meter {sfdi} (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account):\n\n`{lfdi}`\n\nHome Assistant keeps using the current certificate (valid until {expiry}) and switches to the new one as soon as the meter accepts it. Once it is registered, select **Submit** to check right away.",
+                        "title": "Check the registration"
+                    }
+                }
+            },
+            "title": "Register the meter's renewed client certificate"
+        }
+    }
+}

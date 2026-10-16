@@ -1,0 +1,28 @@
+{
+  "domain": "ieee_2030_5",
+  "name": "IEEE 2030.5 Smart Meter",
+  "after_dependencies": [
+    "recorder"
+  ],
+  "codeowners": [
+    "@ismell"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/ismell/ha-ieee-2030-5",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/ismell/ha-ieee-2030-5/issues",
+  "loggers": [
+    "aio2030dot5"
+  ],
+  "requirements": [
+    "aio2030dot5==0.4.0"
+  ],
+  "version": "0.1.0",
+  "zeroconf": [
+    {
+      "name": "itrondnsserver-*",
+      "type": "_smartenergy._tcp.local."
+    }
+  ]
+}

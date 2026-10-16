@@ -1,0 +1,33 @@
+[project]
+name = "ha-ieee-2030-5"
+version = "0.1.0"
+description = "Home Assistant custom integration for IEEE 2030.5 (SEP 2.0) HAN smart meters"
+requires-python = ">=3.13"
+license = "Apache-2.0"
+
+[dependency-groups]
+dev = [
+  "aio2030dot5==0.4.0",
+  "pytest-homeassistant-custom-component==0.13.367",
+  "pytest-cov",
+  "ruff",
+  "mypy",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "ASYNC", "RUF", "PL", "SIM"]
+ignore = ["PLR0913", "PLR0917", "PLR2004", "PLR0911", "PLR0912", "PLR0915", "E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["custom_components"]
+force-sort-within-sections = true
+combine-as-imports = true
