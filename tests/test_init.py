@@ -534,6 +534,7 @@ async def test_a_register_reset_is_confirmed_before_it_shows(
     mock_config_entry: MockConfigEntry,
     snapshot_data: MeterSnapshot,
     freezer: FrozenDateTimeFactory,
+    caplog: pytest.LogCaptureFixture,
 ) -> None:
     """A register that really starts over shows its new, lower value.
 
@@ -561,6 +562,7 @@ async def test_a_register_reset_is_confirmed_before_it_shows(
     assert float(state.state) == 100.0
     assert state.attributes[ATTR_STATE_CLASS] == SensorStateClass.TOTAL_INCREASING
     assert "last_reset" not in state.attributes
+    assert "energy_summation_delivered register moved to a new baseline" in caplog.text
 
 
 async def test_the_device_describes_the_meter(

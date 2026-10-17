@@ -366,6 +366,12 @@ class MeterCoordinator(DataUpdateCoordinator[MeterData]):
         for key, err in snapshot.errors.items():
             LOGGER.debug("Reading %s failed: %s", key, err)
         accepted = self.guard.accept(snapshot, self.profile)
+        for key in sorted(accepted.rebased):
+            LOGGER.warning(
+                "The meter's %s register moved to a new baseline"
+                " (the meter was replaced or reset)",
+                key,
+            )
         values = {**previous.values, **accepted.values}
         tou = {key: dict(tiers) for key, tiers in previous.tou.items()}
         for key, register in accepted.tou.items():

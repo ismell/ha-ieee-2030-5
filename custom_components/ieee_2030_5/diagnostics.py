@@ -35,7 +35,7 @@ async def async_get_config_entry_diagnostics(
             "transport": coordinator.meter.stats.to_dict(),
             "guard": {
                 "rejected": coordinator.guard.rejected,
-                "pending": sorted(coordinator.guard.pending),
+                "pending": coordinator.guard.pending,
             },
         },
         TO_REDACT,
