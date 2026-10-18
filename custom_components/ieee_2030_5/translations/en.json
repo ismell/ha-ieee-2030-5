@@ -67,7 +67,7 @@
                 "description": "Paste the client certificate you registered with your utility and its private key."
             },
             "reauth_confirm": {
-                "description": "The meter no longer accepts the client certificate. If you have just (re-)registered it, try again; otherwise use a new certificate.",
+                "description": "The meter no longer accepts the client certificate. Check that it is still registered with your utility (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account). If you have just (re-)registered it, try again; otherwise use a new certificate.",
                 "menu_options": {
                     "generate_identity": "Generate a new certificate",
                     "import_identity": "Import a registered certificate",
@@ -191,7 +191,7 @@
         "awaiting_registration": {
             "fix_flow": {
                 "abort": {
-                    "still_unregistered": "The meter still refuses the certificate with LFDI `{lfdi}`. Registration can take a few days; Home Assistant keeps checking on its own."
+                    "still_unregistered": "The meter still refuses the certificate with LFDI `{lfdi}`. Check that it is registered with your utility (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account). Registration can take a few days; Home Assistant keeps checking on its own."
                 },
                 "step": {
                     "confirm": {
@@ -241,7 +241,7 @@
             "fix_flow": {
                 "abort": {
                     "cannot_connect": "Failed to connect",
-                    "still_unregistered": "The meter still refuses the certificate with LFDI `{lfdi}`. Registration can take a few days; Home Assistant keeps checking on its own.",
+                    "still_unregistered": "The meter still refuses the certificate with LFDI `{lfdi}`. Check that it is registered with your utility (for Xcel Energy, under [Meters and devices]({xcel_url}) in My Account). Registration can take a few days; Home Assistant keeps checking on its own.",
                     "wrong_device": "This is a different meter than the one configured."
                 },
                 "step": {

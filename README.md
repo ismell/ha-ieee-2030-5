@@ -84,8 +84,9 @@ and readings continue without a gap:
 1. Sixty days before the certificate expires, a repair issue asks you to renew it. You can also start any time: select
    **Reconfigure** on the integration, then **Renew the client certificate**.
 2. Generate a new certificate, or import one you have already registered.
-3. Register the new certificate's LFDI with your utility. Until the meter accepts it, Home Assistant keeps using the
-   current certificate, and a repair issue shows the new LFDI.
+3. Register the new certificate's LFDI with your utility (for Xcel Energy, under
+   [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices)). Until the meter accepts it, Home Assistant keeps using the current certificate, and a
+   repair issue shows the new LFDI.
 4. Home Assistant checks the new certificate every 15 minutes, using one extra connection to the meter, and switches to
    it on its own once the meter accepts it. To check right away, open the repair issue and select **Submit**.
 
@@ -225,12 +226,14 @@ address.
 ### The meter does not accept the certificate yet
 
 After you register a new certificate, it can take a few days before the meter accepts it. The repair issue shows the
-LFDI the utility needs. Check that the registered LFDI matches it exactly.
+LFDI the utility needs. Check that the registered LFDI matches it exactly (for Xcel Energy, under
+[Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices)).
 
 ### The client certificate expired
 
 When the certificate expires, or the utility removes its registration, Home Assistant asks you to reauthenticate,
-unless a [renewed certificate](#renewing-the-certificate) is waiting: then it keeps checking that one instead.
+unless a [renewed certificate](#renewing-the-certificate) is waiting: then it keeps checking that one instead. For Xcel
+Energy, [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices) shows whether the certificate is still registered.
 
 When reauthenticating, choose **Try the current certificate again** if you have just registered it again, or
 **Generate a new certificate** and register its LFDI, or import a certificate you have already registered. Readings

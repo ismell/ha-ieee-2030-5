@@ -37,6 +37,7 @@ from custom_components.ieee_2030_5.const import (
     CONF_PRIVATE_KEY,
     CONF_REGISTERED,
     DOMAIN,
+    UTILITY_PLACEHOLDERS,
 )
 
 from . import (
@@ -380,6 +381,7 @@ async def _reauth_menu(hass: HomeAssistant, entry: MockConfigEntry) -> str:
     result = await entry.start_reauth_flow(hass)
     assert result["type"] is FlowResultType.MENU
     assert result["step_id"] == "reauth_confirm"
+    assert result["description_placeholders"] == UTILITY_PLACEHOLDERS  # the portal link
     return result["flow_id"]
 
 

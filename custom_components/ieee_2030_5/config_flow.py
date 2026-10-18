@@ -320,6 +320,7 @@ class Ieee20305ConfigFlow(ConfigFlow, domain=DOMAIN):
         return self.async_show_menu(
             step_id="reauth_confirm",
             menu_options=["reauth_retry", "generate_identity", "import_identity"],
+            description_placeholders=UTILITY_PLACEHOLDERS,
         )
 
     async def async_step_reauth_retry(
