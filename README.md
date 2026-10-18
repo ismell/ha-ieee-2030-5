@@ -226,7 +226,82 @@ actions:
       message: "Sending {{ states('sensor.electric_meter_power') | float | abs | round(0) }} W to the grid."
 ```
 
-Replace the entity IDs and the `notify` target with the ones in your installation.
+### Recover the meter when its network freezes (UniFi)
+
+Itron Riva meters have a firmware problem: every so often the meter stops answering on your network for hours (14 to
+44 hours have been seen) while it stays connected to the Wi-Fi, so the sensors become unavailable. Forcing the meter
+off the Wi-Fi restarts its network: it rejoins on its own, and the integration reads it again within a minute (12 and
+34 seconds after the reconnect in the two cases seen so far).
+
+If your Wi-Fi is UniFi, this automation does that for you. It waits until the meter has been unavailable for 10 minutes,
+asks UniFi to reconnect it, and tries again every 30 minutes while it stays down. It needs:
+
+- The [UniFi Network](https://www.home-assistant.io/integrations/unifi/) integration, set up with a UniFi account that
+  may manage clients (for example, the Site Admin role), and the meter showing up in it as a tracked client.
+- The meter's UniFi device in the `device_id` below. The easiest way to get it: create the automation in the UI, add
+  the action **UniFi Network: Reconnect wireless client**, and pick the meter as the device.
+
+```yaml
+alias: "Recover the meter when its network freezes"
+description: >-
+  The meter's network can freeze while it stays on the Wi-Fi. Reconnecting it
+  to the Wi-Fi brings it back within a minute.
+mode: single
+max_exceeded: silent
+triggers:
+  - trigger: state
+    entity_id: sensor.electric_meter_power
+    to: unavailable
+    for:
+      minutes: 10
+  - trigger: time_pattern
+    minutes: /30
+conditions:
+  - condition: state
+    entity_id: sensor.electric_meter_power
+    state: unavailable
+    for:
+      minutes: 10
+  - alias: "At most one reconnect every 25 minutes"
+    condition: template
+    value_template: >-
+      {% set last = this.attributes.last_triggered %}
+      {{ last is none or (now() - last).total_seconds() > 1500 }}
+actions:
+  - action: unifi.reconnect_client
+    data:
+      device_id: YOUR_METER_UNIFI_DEVICE_ID
+    continue_on_error: true
+  - alias: "Give the meter 3 minutes to rejoin and answer a poll"
+    wait_template: "{{ not is_state('sensor.electric_meter_power', 'unavailable') }}"
+    timeout:
+      minutes: 3
+    continue_on_timeout: true
+  - if:
+      - condition: template
+        value_template: "{{ wait.completed }}"
+    then:
+      - action: logbook.log
+        data:
+          name: Electric meter
+          entity_id: sensor.electric_meter_power
+          message: "recovered after a Wi-Fi reconnect"
+    else:
+      - action: notify.send_message
+        target:
+          entity_id: notify.my_device
+        data:
+          message: >-
+            The electric meter is still unavailable after a Wi-Fi reconnect.
+            Retrying every 30 minutes. If it stays down, send its Wi-Fi
+            settings again from the utility's page.
+```
+
+Without UniFi, use your access point's own way to disconnect a client, if it has one in Home Assistant, or send the
+meter's Wi-Fi settings again from the utility's page (for Xcel Energy,
+[Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices)).
+
+Replace the entity IDs, the device ID and the `notify` target with the ones in your installation.
 
 ## Data updates
 
@@ -292,8 +367,9 @@ stop until the meter accepts a certificate; [renewing in time](#renewing-the-cer
   [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices) page shows
   its status.
 - An Itron meter can stop answering for hours while it stays connected to the Wi-Fi. Forcing it to reconnect brings
-  it back within seconds: disconnect it from your access point (for example, "Reconnect client" in UniFi), or send its
-  Wi-Fi settings again from the utility's page.
+  it back within a minute: disconnect it from your access point, or send its Wi-Fi settings again from the utility's
+  page. With UniFi, an automation can do this for you: see
+  [Recover the meter when its network freezes](#recover-the-meter-when-its-network-freezes-unifi).
 
 ### The meter moved to a new address
 
