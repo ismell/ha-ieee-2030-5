@@ -25,17 +25,21 @@ manually.
 
 ## Prerequisites
 
-- **The meter must be connected to your network.** For Xcel Energy, connect the meter to your Wi-Fi under
-  [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices) in My Account.
-- **A client certificate registered with your utility.** The meter only talks to clients whose certificate the utility
-  has registered. Home Assistant can generate one during setup and shows you its **LFDI** (a fingerprint of 40
-  hexadecimal digits) to register; you can also import a certificate you have already registered. Registration can take
-  a few days.
-- **Home Assistant must be able to reach the meter** on TCP port 8081. If the meter is on a separate network (for
-  example, an IoT VLAN), allow traffic from Home Assistant to the meter, and forward mDNS between the networks if you
-  want automatic discovery.
-- **Nothing else may be reading the meter.** The meter serves a single client at a time. Stop any other app, add-on,
-  or device that reads it locally before you set up this integration.
+1. **Connect the meter to your network.** For Xcel Energy, sign in to My Account, open
+   [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices),
+   and connect the meter to your Wi-Fi there. The page then shows the meter's Wi-Fi connectivity (for example,
+   "Connected to" your network) and its meter setup status. While the setup status is **Pending**, the meter can
+   already be on your network but still refuse connections: wait until the utility finishes the setup.
+2. **Make sure Home Assistant can reach the meter** on TCP port 8081. If the meter is on a separate network (for
+   example, an IoT VLAN), allow traffic from Home Assistant to the meter, and forward mDNS between the networks if you
+   want automatic discovery.
+3. **Stop anything else that reads the meter.** The meter serves a single client at a time. Stop any other app,
+   add-on, or device that reads it locally before you set up this integration.
+
+You also need a **client certificate registered with your utility**: the meter only talks to clients whose certificate
+the utility has registered. You don't need one in advance. During setup, Home Assistant can generate one and show you
+its **LFDI** (a fingerprint of 40 hexadecimal digits) to register; you can also import a certificate you have already
+registered. Registration can take a few days.
 
 ## Installation
 
@@ -70,6 +74,12 @@ certificate's LFDI, for example `431ED-86C1F-202CD-D3FEB-3EF8D-CB9F4-457F0-EC47D
 The private key never leaves Home Assistant. It is stored with the integration's configuration and removed together
 with it.
 
+### More than one meter
+
+If you have more than one meter, for example a separate meter for solar production, add each one on its own: each
+meter is a separate entry in Home Assistant with its own certificate, and each certificate is registered with the
+utility for its meter.
+
 ### Identifying the meter
 
 The integration identifies the meter by its own certificate, not by its IP address, so it never shows readings from a
@@ -97,7 +107,9 @@ accepts it.
 Only one renewal can wait at a time. To replace it, select **Reconfigure**, then **Discard the pending certificate**,
 and confirm: this deletes its private key, so a registration you made for its LFDI can no longer be used.
 
-## Sensors
+## Supported functionality
+
+### Sensors
 
 The integration creates a device for the meter with these sensors:
 
@@ -144,6 +156,31 @@ settings. If your utility charges different prices per time-of-use period, and t
 are billed for, you can instead add each **Energy imported tier _N_** sensor as a separate grid consumption, each with
 its own price. Check this first: a meter's tier schedule can differ from the tariff the utility bills (for example,
 after a tariff change), and the meter updates its tier registers only about once an hour.
+
+### Repairs
+
+The integration raises these repair issues under **Settings** > **System** > **Repairs**:
+
+- **Register the meter's client certificate**: the meter does not accept the certificate yet. Shows the LFDI to
+  register; select **Submit** to check again.
+- **The meter's client certificate expires soon**: 60 days before expiry. Starts a [renewal](#renewing-the-certificate).
+- **Register the meter's renewed client certificate**: a renewed certificate is waiting to be registered. Shows its
+  LFDI.
+
+### Reconfiguration
+
+Select **Reconfigure** on the integration (under **Settings** > **Devices & services**) to:
+
+- **Change the meter's address**: when its IP address or port changed. Home Assistant checks that it is the same meter.
+- **Renew the client certificate**: see [Renewing the certificate](#renewing-the-certificate).
+- **Discard the pending certificate**: when a renewal is waiting.
+
+### Diagnostics
+
+When you report a problem, download diagnostics from the integration's **⋮** menu under **Settings** > **Devices &
+services**. They contain the meter's description, its latest readings, connection counters, and the state of the
+reading checks. The certificate, private key, meter and certificate identifiers (LFDI, SFDI), serial number, and
+address are removed.
 
 ## Examples
 
@@ -216,6 +253,15 @@ not shown: the sensor is unknown until the next good reading.
 
 ## Troubleshooting
 
+### Setup says "Failed to connect"
+
+Home Assistant could not open a connection to the meter. Check, in this order:
+
+1. The meter's setup is finished: for Xcel Energy, [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices) must no longer show the meter setup as
+   **Pending**. Until then, the meter refuses connections even though it is on your network.
+2. Home Assistant can reach the meter's address on port 8081 (see [Prerequisites](#prerequisites)).
+3. Nothing else is reading the meter.
+
 ### The meter is not discovered
 
 Itron meters announce themselves with mDNS (`_smartenergy._tcp`); other meters are added manually. If Home Assistant
@@ -255,6 +301,16 @@ Home Assistant finds an Itron meter again through discovery. For other meters, o
 network, select **Reconfigure** on the integration, then **Change the meter's address**. Home Assistant checks that it
 is the same meter.
 
+### Reporting a problem
+
+Open an issue on [GitHub](https://github.com/ismell/ha-ieee-2030-5/issues), and attach:
+
+1. **Diagnostics** (see [Diagnostics](#diagnostics)).
+2. **Debug logs**: on the integration's page under **Settings** > **Devices & services**, select **⋮** >
+   **Enable debug logging**, wait for the problem to happen again, then select **Disable debug logging**: the log
+   downloads. Logs show only the last digits of the meter's identifiers. If you set the meter up by its host name
+   rather than its IP address, check the log for it before sharing.
+
 ## Removing the integration
 
 Remove it under **Settings** > **Devices & services**: select the integration, then **⋮** > **Delete**. Removing it
@@ -264,7 +320,7 @@ locally, you can also remove the device registration with your utility.
 
 ## Development
 
-```
+```sh
 uv run --group dev pytest
 ```
 
