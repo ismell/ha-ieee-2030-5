@@ -12,7 +12,9 @@ from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
     load_json_object_fixture,
 )
+from pytest_homeassistant_custom_component.syrupy import HomeAssistantSnapshotExtension
 from pytest_homeassistant_custom_component.typing import ClientSessionGenerator
+from syrupy.assertion import SnapshotAssertion
 
 from custom_components.ieee_2030_5.const import CONF_REGISTERED
 
@@ -22,6 +24,17 @@ from . import make_meter, meter_entry, route
 @pytest.fixture(autouse=True)
 def auto_enable_custom_integrations(enable_custom_integrations: None) -> None:
     """Load the integration from custom_components/ in every test."""
+
+
+@pytest.fixture
+def snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
+    """Snapshots in tests/snapshots/, as Home Assistant keeps them.
+
+    The test plugin and syrupy both define this fixture, and which one wins
+    depends on the order pytest happens to load them; a conftest fixture
+    always wins.
+    """
+    return snapshot.use_extension(HomeAssistantSnapshotExtension)
 
 
 @pytest.fixture
