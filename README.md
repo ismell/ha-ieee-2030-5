@@ -1,11 +1,11 @@
-# IEEE 2030.5 Smart Meter for Home Assistant
+# IEEE 2030.5 Smart Meter for Home Assistant (Xcel Energy Itron Riva)
 
 [![Open your Home Assistant instance and open this repository in the Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=ismell&repository=ha-ieee-2030-5&category=integration)
 
-Read your electric utility meter directly over your local network, using the
-[IEEE 2030.5](https://standards.ieee.org/ieee/2030.5/11216/) protocol (also known as Smart Energy Profile 2.0). The
-integration shows how much power your home is drawing from or sending to the grid right now, along with the meter's own
-energy totals, so you can use the meter as the grid source of the energy dashboard.
+Read your electric utility meter, such as Xcel Energy's Itron Riva smart meter, directly over your local network,
+using the [IEEE 2030.5](https://standards.ieee.org/ieee/2030.5/11216/) protocol (also known as Smart Energy Profile
+2.0). The integration shows how much power your home is drawing from or sending to the grid right now, along with the
+meter's own energy totals, so you can use the meter as the grid source of the energy dashboard.
 
 Some utilities let customers connect their smart meter to their home Wi-Fi and register devices that may read it. Xcel
 Energy, for example, offers this for its Itron Riva meters. Readings come straight from the meter: no cloud service or
