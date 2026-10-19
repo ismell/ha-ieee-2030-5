@@ -111,8 +111,10 @@ Then set up the [energy dashboard](../README.md#energy-dashboard).
 Each meter is its own entry in Home Assistant, with its own certificate registered on its own billing account's
 Meters and devices page. Repeat steps 1 to 4 for it, with its billing account selected.
 
-Both meters' devices are called **Electric meter**, so the second one's entity IDs get a `_2` suffix. Rename its device
-(for example, to "Solar meter") on its device page, and let Home Assistant rename the entity IDs to match.
+Give each meter its own name: the dialog that ends the setup lets you name the meter (for example, "Solar meter") and
+pick its area, and its sensors take that name. Otherwise both are called **Electric meter**, and the second one's
+entity IDs get a `_2` suffix. You can also rename a meter later on its device page, and let Home Assistant rename its
+entity IDs to match.
 
 ### A solar production meter
 
@@ -123,5 +125,8 @@ A production meter measures what your solar panels produce. On the production me
 - **Power** is what the panels produce right now. At night it shows a few watts below zero: the inverter draws a
   little power while idle, and **Energy exported** counts it.
 
-In the energy dashboard, add the production meter's **Energy imported** under **Solar panels**, and keep the main
-meter's **Energy imported** and **Energy exported** as grid consumption and return to grid.
+If your inverter already has an integration in Home Assistant (SolarEdge or Enphase, for example), keep it as the solar
+source of the energy dashboard. The production meter is then a second, independent measurement: the utility's own,
+handy for checking one against the other. Without an inverter integration, add the production meter's **Energy
+imported** under **Solar panels**. Either way, keep the main meter's **Energy imported** and **Energy exported** as
+grid consumption and return to grid.

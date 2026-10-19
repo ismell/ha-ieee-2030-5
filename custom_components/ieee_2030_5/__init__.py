@@ -4,7 +4,7 @@ from aio2030dot5 import Identity, InvalidIdentity, Meter
 from homeassistant.const import CONF_HOST, CONF_PORT, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryError
-from homeassistant.helpers import issue_registry as ir
+from homeassistant.helpers import device_registry as dr, issue_registry as ir
 
 from . import renewal
 from .const import (
@@ -24,6 +24,14 @@ PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 async def async_setup_entry(hass: HomeAssistant, entry: Ieee20305ConfigEntry) -> bool:
     """Set up an IEEE 2030.5 meter from a config entry."""
+    # The device exists from the start, though the meter may refuse the client
+    # certificate for days: the dialog that ends setup then offers to name the
+    # meter and pick its area, and the sensors that appear later follow suit.
+    dr.async_get(hass).async_get_or_create(
+        config_entry_id=entry.entry_id,
+        identifiers={(DOMAIN, entry.data[CONF_METER_LFDI])},
+        translation_key="meter",
+    )
     try:
         identity = Identity.from_dict(entry.data[CONF_IDENTITY])
     except InvalidIdentity as err:

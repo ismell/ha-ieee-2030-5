@@ -23,7 +23,11 @@ from homeassistant.components.sensor import ATTR_STATE_CLASS, SensorStateClass
 from homeassistant.config_entries import SOURCE_REAUTH, ConfigEntryState
 from homeassistant.const import STATE_UNAVAILABLE, STATE_UNKNOWN
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr, issue_registry as ir
+from homeassistant.helpers import (
+    device_registry as dr,
+    entity_registry as er,
+    issue_registry as ir,
+)
 import pytest
 from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
@@ -170,6 +174,40 @@ async def test_awaiting_registration(
     assert issue_registry.async_get_issue(DOMAIN, issue_id) is None
 
 
+async def test_the_meter_can_be_named_before_it_accepts_the_certificate(
+    hass: HomeAssistant,
+    mock_meter: AsyncMock,
+    unregistered_entry: MockConfigEntry,
+    repairs_client: TestClient,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """The device exists while registration is pending, so the dialog that ends
+    setup can name it; the sensors that appear later carry that name."""
+    entry = unregistered_entry
+    mock_meter.discover.side_effect = MeterAuthError("refused")
+    await setup_integration(hass, entry)
+    assert entry.state is ConfigEntryState.SETUP_RETRY
+    (device,) = dr.async_entries_for_config_entry(device_registry, entry.entry_id)
+    assert device.name == "Electric meter"
+    device_registry.async_update_device(device.id, name_by_user="Solar meter")
+
+    mock_meter.discover.side_effect = None  # the utility registered the certificate
+    issue_id = awaiting_registration_issue_id(entry.entry_id)
+    flow = await start_repair_fix_flow(repairs_client, DOMAIN, issue_id)
+    await process_repair_fix_flow(repairs_client, flow["flow_id"], json={})
+    await hass.async_block_till_done()
+    assert entry.state is ConfigEntryState.LOADED
+
+    (same,) = dr.async_entries_for_config_entry(device_registry, entry.entry_id)
+    assert same.id == device.id
+    assert same.manufacturer == "Itron"  # filled in once the meter answered
+    power = entity_registry.async_get_entity_id(
+        "sensor", DOMAIN, f"{entry.unique_id}_power"
+    )
+    assert power == "sensor.solar_meter_power"
+
+
 async def test_fix_flow_for_a_removed_entry(
     hass: HomeAssistant,
     mock_meter: AsyncMock,
@@ -217,6 +255,7 @@ async def test_removing_the_entry_leaves_nothing_behind(
     await hass.async_block_till_done()
     assert not issue_registry.issues
     assert STORE_KEY not in hass_storage
+    assert not dr.async_entries_for_config_entry(dr.async_get(hass), entry.entry_id)
 
 
 async def test_rejected_after_registration_starts_reauth(

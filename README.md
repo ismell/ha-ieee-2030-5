@@ -64,7 +64,8 @@ registered. Registration can take a few days.
 ### Registering a new certificate
 
 If you choose **Generate a new certificate**, Home Assistant creates the integration right away and shows the
-certificate's LFDI, for example `431ED-86C1F-202CD-D3FEB-3EF8D-CB9F4-457F0-EC47D`.
+certificate's LFDI, for example `431ED-86C1F-202CD-D3FEB-3EF8D-CB9F4-457F0-EC47D`. The same dialog lets you name the
+meter and pick its area; its sensors take that name once they appear.
 
 1. Register that LFDI with your utility, exactly as shown (Xcel Energy accepts it in groups of five, or without
    dashes). For Xcel Energy, add a device under
