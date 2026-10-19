@@ -58,7 +58,7 @@ weeks. Until the meter is ready, it can already be on your Wi-Fi but refuses con
 it up yet ("Failed to connect").
 
 Don't rely on the page alone: a meter can be ready while the page still shows **Pending**. One meter started
-answering, and Home Assistant discovered it, about a day after it joined the Wi-Fi, with the page still showing
+answering, and Home Assistant discovered it, about twelve hours after it joined the Wi-Fi, with the page still showing
 **Pending**. When Home Assistant shows the meter under **Settings** > **Devices & services** as discovered, it is
 ready: go on to the next step.
 
