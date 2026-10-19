@@ -43,10 +43,15 @@ This integration is not affiliated with or endorsed by Xcel Energy.
    does.
 
 The status on Xcel's page can lag behind: it showed **Not Connected** for a meter that had been on the Wi-Fi without a
-break for twelve hours. Your router's list of connected devices is the reliable check. The meter shows up there as an
+break for twelve hours, until the page was refreshed. Refresh it, and use your router's list of connected devices as
+the reliable check. The meter shows up there as an
 Itron device. Note its IP address: you need it if Home Assistant does not discover the meter.
 
 ## 3. Wait for the meter setup
+
+Once the meter is on your Wi-Fi, the page looks like this:
+
+![Connected Devices: Wi-Fi Connectivity Connected to the home network, Meter Setup Pending](images/xcel/connected-pending.png)
 
 **Meter Setup** shows **Pending** until Xcel finishes setting the meter up, which can take days; customers have reported
 weeks. Until then the meter
