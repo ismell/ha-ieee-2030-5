@@ -70,11 +70,27 @@ ready: go on to the next step.
    integration with the meter's IP address.
 3. Choose **Generate a new certificate**. Home Assistant shows the certificate's **LFDI**, for example
    `431ED-86C1F-202CD-D3FEB-3EF8D-CB9F4-457F0-EC47D`.
-4. Register that LFDI as a device on
-   [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices). Xcel
-   accepts it in groups of five, as shown, or without the dashes.
-5. Registration can take a few days. Meanwhile a repair issue shows the LFDI, and Home Assistant keeps checking. Once
-   the meter accepts the certificate, the sensors appear.
+4. Register that LFDI with Xcel. Open [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices?wifistatus), select **Manage** on the Xcel Energy
+   Launchpad card, and on **Connected Devices**, under **My Devices**, select **Add a Device**.
+
+   ![Connected Devices with the Add a Device button under My Devices](images/xcel/my-devices.png)
+
+5. Fill in the form, and select **Next**:
+   - **LFDI**: the LFDI Home Assistant shows, in groups of five as shown, or without the dashes.
+   - **Nickname**: any name, for example "Home Assistant".
+   - **Manufacturer of Device**: for example "Home Assistant".
+   - **Device Type**: **In-home Display** works.
+
+   ![The Add Device form: LFDI, Nickname, Manufacturer of Device and Device Type](images/xcel/add-device.png)
+
+6. Xcel confirms the request. It says that if the meter has not finished its setup ("licensing"), using the device can
+   take up to 5 business days, and that it emails you once the meter is licensed.
+
+   ![Xcel's confirmation that it received the request to add an authorized device](images/xcel/add-device-success.png)
+
+7. Meanwhile, a repair issue in Home Assistant shows the LFDI, and Home Assistant keeps checking. Once the meter accepts
+   the certificate, the sensors appear: for one meter that took minutes, while Xcel's page still showed the meter
+   setup as **Pending**.
 
 If you already registered a certificate for another tool, choose **Import a registered certificate** instead and paste
 the certificate and its private key. Stop the other tool first: the meter serves one client at a time.
@@ -93,5 +109,19 @@ Then set up the [energy dashboard](../README.md#energy-dashboard).
 ## A second meter
 
 Each meter is its own entry in Home Assistant, with its own certificate registered on its own billing account's
-Meters and devices page. A solar production meter has not been tested with the integration yet; this section will
-cover it once it has.
+Meters and devices page. Repeat steps 1 to 4 for it, with its billing account selected.
+
+Both meters' devices are called **Electric meter**, so the second one's entity IDs get a `_2` suffix. Rename its device
+(for example, to "Solar meter") on its device page, and let Home Assistant rename the entity IDs to match.
+
+### A solar production meter
+
+A production meter measures what your solar panels produce. On the production meter this was tested with:
+
+- **Energy imported** is the solar production. The meter's own history shows it at zero overnight, rising from
+  about 7:00, and peaking around noon.
+- **Power** is what the panels produce right now. At night it shows a few watts below zero: the inverter draws a
+  little power while idle, and **Energy exported** counts it.
+
+In the energy dashboard, add the production meter's **Energy imported** under **Solar panels**, and keep the main
+meter's **Energy imported** and **Energy exported** as grid consumption and return to grid.

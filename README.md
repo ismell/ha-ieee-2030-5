@@ -15,6 +15,9 @@ meter: no cloud service or utility account access is involved after registration
 This is a custom integration, distributed through the Home Assistant Marketplace (HACS before Home Assistant 2026.11).
 It is not affiliated with or endorsed by Xcel Energy, Itron, or the IEEE.
 
+![A meter's device page in Home Assistant: energy imported and exported, time-of-use tiers, power, and more sensors that
+can be enabled](https://raw.githubusercontent.com/ismell/ha-ieee-2030-5/main/docs/images/device-page.png)
+
 ## Supported devices
 
 - Itron Gen5 Riva meters on Xcel Energy's network (firmware 3.2.50 has been tested).
@@ -78,7 +81,10 @@ with it.
 
 If you have more than one meter, for example a separate meter for solar production, add each one on its own: each
 meter is a separate entry in Home Assistant with its own certificate, and each certificate is registered with the
-utility for its meter.
+utility for its meter. On a solar production meter, **Energy imported** is what the panels produce: see
+[A solar production meter](https://github.com/ismell/ha-ieee-2030-5/blob/main/docs/xcel.md#a-solar-production-meter).
+
+![The integration's page in Home Assistant, with one entry per meter](https://raw.githubusercontent.com/ismell/ha-ieee-2030-5/main/docs/images/integration-page.png)
 
 ### Identifying the meter
 
