@@ -28,8 +28,8 @@ manually.
 
 1. **Connect the meter to your network.** For Xcel Energy, follow
    [Setting up an Xcel Energy meter](https://github.com/ismell/ha-ieee-2030-5/blob/main/docs/xcel.md): turn on Launchpad, connect the meter to your
-   Wi-Fi, and wait until Xcel finishes the meter setup. While the setup shows **Pending**, the meter can already be on
-   your network but still refuses connections.
+   Wi-Fi, and wait until Xcel finishes the meter setup. Until then, the meter can already be on your network but still
+   refuses connections. (Xcel's page can still show the setup as **Pending** after the meter is ready.)
 2. **Make sure Home Assistant can reach the meter** on TCP port 8081. If the meter is on a separate network (for
    example, an IoT VLAN), allow traffic from Home Assistant to the meter, and forward mDNS between the networks if you
    want automatic discovery.
@@ -332,8 +332,9 @@ not shown: the sensor is unknown until the next good reading.
 
 Home Assistant could not open a connection to the meter. Check, in this order:
 
-1. The meter's setup is finished: for Xcel Energy, [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices) must no longer show the meter setup as
-   **Pending**. Until then, the meter refuses connections even though it is on your network.
+1. The meter's setup is finished. Until then, the meter refuses connections even though it is on your network. For
+   Xcel Energy, [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices)
+   shows the meter setup as **Pending** meanwhile, but it can still show that for a while after the meter is ready.
 2. Home Assistant can reach the meter's address on port 8081 (see [Prerequisites](#prerequisites)).
 3. Nothing else is reading the meter.
 

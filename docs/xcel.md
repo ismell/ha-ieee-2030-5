@@ -54,8 +54,13 @@ Once the meter is on your Wi-Fi, the page looks like this:
 ![Connected Devices: Wi-Fi Connectivity Connected to the home network, Meter Setup Pending](images/xcel/connected-pending.png)
 
 **Meter Setup** shows **Pending** until Xcel finishes setting the meter up, which can take days; customers have reported
-weeks. Until then the meter
-can already be on your Wi-Fi but refuses connections, so Home Assistant cannot set it up yet ("Failed to connect").
+weeks. Until the meter is ready, it can already be on your Wi-Fi but refuses connections, so Home Assistant cannot set
+it up yet ("Failed to connect").
+
+Don't rely on the page alone: a meter can be ready while the page still shows **Pending**. One meter started
+answering, and Home Assistant discovered it, about a day after it joined the Wi-Fi, with the page still showing
+**Pending**. When Home Assistant shows the meter under **Settings** > **Devices & services** as discovered, it is
+ready: go on to the next step.
 
 ## 4. Add the meter to Home Assistant
 
