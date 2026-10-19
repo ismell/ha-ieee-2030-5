@@ -8,8 +8,9 @@ using the [IEEE 2030.5](https://standards.ieee.org/ieee/2030.5/11216/) protocol 
 meter's own energy totals, so you can use the meter as the grid source of the energy dashboard.
 
 Some utilities let customers connect their smart meter to their home Wi-Fi and register devices that may read it. Xcel
-Energy, for example, offers this for its Itron Riva meters. Readings come straight from the meter: no cloud service or
-utility account access is involved after registration.
+Energy, for example, offers this for its Itron Riva meters: see
+[Setting up an Xcel Energy meter](https://github.com/ismell/ha-ieee-2030-5/blob/main/docs/xcel.md). Readings come straight from the
+meter: no cloud service or utility account access is involved after registration.
 
 This is a custom integration, distributed through the Home Assistant Marketplace (HACS before Home Assistant 2026.11).
 It is not affiliated with or endorsed by Xcel Energy, Itron, or the IEEE.
@@ -25,11 +26,10 @@ manually.
 
 ## Prerequisites
 
-1. **Connect the meter to your network.** For Xcel Energy, sign in to My Account, open
-   [Meters and devices](https://my.xcelenergy.com/MyAccount/s/meters-and-devices/manage-meters-and-devices),
-   and connect the meter to your Wi-Fi there. The page then shows the meter's Wi-Fi connectivity (for example,
-   "Connected to" your network) and its meter setup status. While the setup status is **Pending**, the meter can
-   already be on your network but still refuse connections: wait until the utility finishes the setup.
+1. **Connect the meter to your network.** For Xcel Energy, follow
+   [Setting up an Xcel Energy meter](https://github.com/ismell/ha-ieee-2030-5/blob/main/docs/xcel.md): turn on Launchpad, connect the meter to your
+   Wi-Fi, and wait until Xcel finishes the meter setup. While the setup shows **Pending**, the meter can already be on
+   your network but still refuses connections.
 2. **Make sure Home Assistant can reach the meter** on TCP port 8081. If the meter is on a separate network (for
    example, an IoT VLAN), allow traffic from Home Assistant to the meter, and forward mDNS between the networks if you
    want automatic discovery.
